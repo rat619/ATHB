@@ -1,0 +1,124 @@
+
+in linux
+sudo apt update
+sudo apt upgrade
+
+
+rm -rf venv
+python3 -m venv venv
+source venv/bin/activate
+pip install django
+pip install psycopg2-binary
+pip install dj_database_url
+pip install whitenoise
+pip install python-dotenv
+pip install python-dateutil
+
+pip freeze  requirements.txt
+
+or pip install -r requirements.txt
+
+
+django-admin startproject PROJECT .
+python manage.py startapp APP
+
+in settings:
+
+import os
+import dj_database_url
+from dotenv import load_dotenv
+import django.conf.locale
+
+ALLOWED_HOSTS = ['127.0.0.1','0.0.0.0','localhost','forecast-21v1.onrender.com','86.247.69.203']
+
+SECURE_SSL_REDIRECT = os.getenv('SECURE_SSL_REDIRECT','False') == True
+
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/accounts/login/'
+LOGOUT_REDIRECT_URL = '/'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_FROM = 'thierry.fanahafa@gmail.com'
+EMAIL_HOST_USER = 'thierry.fanahafa@gmail.com'
+EMAIL_HOST_PASSWORD = 'staidshlprizhgfk'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+middleware admin css corrupt if there is no whitenoise
+
+ 'whitenoise.middleware.WhiteNoiseMiddleware',   
+    'django.middleware.locale.LocaleMiddleware',
+    
+static 
+
+
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
+
+STATICFILES_DIRS = [
+    ("APP", BASE_DIR / "APP/static/",),
+]
+
+
+
+
+python manage.py makemigrations
+python manage.py migrate
+python manage.py createsuperuser
+python manage.py collectstatic
+python manage.py runserver 0.0.0.0:8004
+
+in settings 
+
+in windows 
+.\.venv\Scripts\activate 
+
+gunicorn PROJECT.wsgi:application --bind 0.0.0.0:8004
+
+sudo nano /etc/systemd/system/PROJECT.service
+
+[Unit]
+Description=Gunicorn daemon for Django app
+After=network.target
+
+[Service]
+User=tita
+Group=www-data
+WorkingDirectory=/home/tita/Documents/DEV/Budget Forecast
+Environment="PATH=/home/tita/Documents/DEV/Budget Forecast/venv/bin"
+ExecStart="/home/tita/Documents/DEV/Budget Forecast/venv/bin/gunicorn" budget_app.wsgi:application --bind 0.0.0.0:8000 \
+  --timeout 120 \
+  --access-logfile /var/log/forecast/access.log \
+  --error-logfile /var/log/forecast/error.log 
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+sudo systemctl daemon-reexec
+sudo systemctl daemon-reload
+sudo systemctl enable PROJECT.service
+
+sudo systemctl start PROJECT.service
+sudo systemctl status PROJECT.service
+
+
+
+for internalization
+ in settings
+ import django.conf.locale
+ 
+ in models or view
+  from django.utils.translation import gettext_lazy as _
+
+in template
+{% load i18n %}
+{% trans "Home" %}
+
+
+sudo apt-get install gettext
+django-admin makemessages -l fr
+django-admin makemessages -l mg
+django-admin compilemessages

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-5">
+  <h1 class="text-center mb-4 brand-font">About Us</h1>
+  <p class="lead text-center mb-5">
+    At <strong>AtHomeBeauty</strong>, we build powerful, secure, and intelligent software solutions for the financial world. We partner with banks and insurance companies to deliver digital products that reduce risk, automate compliance, and improve decision-making.
+  </p>
+  <div class="text-center mt-5">
+    <a href="{% url 'services' %}" class="btn bg-primary-subtle btn-lg px-4 text-light" data-bs-theme="dark">Explore Our Services</a>
+  </div>
+</div>
+{% endblock %}

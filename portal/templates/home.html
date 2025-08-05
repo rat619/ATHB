@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container py-5" style="background-image: url('{% static "images/nail-salons.avif" %}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+    <div class="text-center">
+      <h1 class="display-4 brand-font text-light">Welcome</h1>
+      <!--p class="lead mt-3">Empowering families with simple digital tools.</p-->
+    </div>
+  
+    <div class="row text-center mt-5 ">
+      <div class="col-md-6 mt-6 mt-md-0">
+        <div class="card shadow-sm bg-transparent border-transparent">
+          <div class="card-body">
+            <h5 class="card-title text-light">Products</h5>
+            <p class="card-text text-light">Discover the products that make us unique.</p>
+            <a href="{% url 'products' %}" class="btn btn-light">Explore</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 mt-6 mt-md-0">
+        <div class="card shadow-sm bg-transparent border-transparent">
+          <div class="card-body">
+            <h5 class="card-title text-light">Services</h5>
+            <p class="card-text text-light">Check out what we offer to support your enterprise</p>
+            <a href="{% url 'services' %}" class="btn btn-light">View Services</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+{% endblock %}

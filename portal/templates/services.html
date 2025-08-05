@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-5">
+  <h1 class="text-center mb-4 brand-font">Services</h1>
+  <div class="row g-4">
+    {% for obj in objects %}
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">{{ obj.title}}</h5>
+          <p class="card-text">{{ obj.content}}</p>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">No feature yet</h5>
+          <p class="card-text">Patience</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

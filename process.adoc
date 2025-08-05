@@ -13,6 +13,7 @@ pip install dj_database_url
 pip install whitenoise
 pip install python-dotenv
 pip install python-dateutil
+pip install gunicorn
 
 pip freeze  requirements.txt
 
@@ -74,9 +75,13 @@ in settings
 in windows 
 .\.venv\Scripts\activate 
 
-gunicorn PROJECT.wsgi:application --bind 0.0.0.0:8004
+gunicorn ATHB.wsgi:application --bind 0.0.0.0:8004
 
-sudo nano /etc/systemd/system/PROJECT.service
+sudo mkdir -p /var/log/ATHB
+sudo chown -R tita:www-data /var/log/ATHB
+
+sudo nano /etc/systemd/system/ATHB.service
+
 
 [Unit]
 Description=Gunicorn daemon for Django app
@@ -85,12 +90,12 @@ After=network.target
 [Service]
 User=tita
 Group=www-data
-WorkingDirectory=/home/tita/Documents/DEV/Budget Forecast
-Environment="PATH=/home/tita/Documents/DEV/Budget Forecast/venv/bin"
-ExecStart="/home/tita/Documents/DEV/Budget Forecast/venv/bin/gunicorn" budget_app.wsgi:application --bind 0.0.0.0:8000 \
+WorkingDirectory=/home/tita/Documents/DEV/ATHOMEBEAUTY
+Environment="PATH=/home/tita/Documents/DEV/ATHOMEBEAUTY/venv/bin"
+ExecStart="/home/tita/Documents/DEV/ATHOMEBEAUTY/venv/bin/gunicorn" ATHB.wsgi:application --bind 0.0.0.0:8004 \
   --timeout 120 \
-  --access-logfile /var/log/forecast/access.log \
-  --error-logfile /var/log/forecast/error.log 
+  --access-logfile /var/log/ATHB/access.log \
+  --error-logfile /var/log/ATHB/error.log 
 
 [Install]
 WantedBy=multi-user.target
@@ -99,11 +104,35 @@ WantedBy=multi-user.target
 
 sudo systemctl daemon-reexec
 sudo systemctl daemon-reload
-sudo systemctl enable PROJECT.service
+sudo systemctl enable ATHB.service
 
-sudo systemctl start PROJECT.service
-sudo systemctl status PROJECT.service
+sudo systemctl start ATHB.service
+sudo systemctl status ATHB.service
 
+
+sudo nano /etc/nginx/sites-available/ATHB
+
+server {
+    listen 8082;
+    server_name localhost;
+
+    location / {
+        proxy_pass http://127.0.0.1:8004;
+        include proxy_params;
+        proxy_redirect off;
+    }
+}
+
+sudo ln -s /etc/nginx/sites-available/ATHB /etc/nginx/sites-enabled/
+
+sudo nginx -t
+sudo systemctl restart nginx
+
+sudo systemctl enable nginx
+sudo systemctl enable ATHB
+
+sudo ufw allow 8082
+sudo ufw enable
 
 
 for internalization

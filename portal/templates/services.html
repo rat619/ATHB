@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% block content %}
+<p class="text-start mb-2 brand-font">
+  <a href="{% url 'home' %}">{% trans "Home" %}</a> > {% trans "Services" %}
+</p>
 <div class="container py-5">
-  <h1 class="text-center mb-4 brand-font">{% trans "Services" %}</h1>
   <div class="row g-4">
     {% for obj in objects %}
     <div class="col-md-4">

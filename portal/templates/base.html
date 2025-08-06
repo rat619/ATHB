@@ -43,9 +43,9 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fs-5 mx-5">
-          <li class="nav-item ">
+          <!--li class="nav-item ">
             <a class="nav-link " href="{% url 'products' %}">Products</a>
-          </li>
+          </li-->
           <li class="nav-item ">
             <a class="nav-link " href="{% url 'services' %}">Services</a>
           </li>
@@ -82,19 +82,31 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="inputNLabel">Contact us</h1>
+          <h1 class="modal-title fs-5" id="inputNLabel">Book an appointment</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form method="POST" action="{% url 'home' %}">
             {% csrf_token %}
             <div class="mb-3">
+              <label for="phone">Phone number:</label>
+              <input type="tel" id="phone" name="phone"
+                    maxlength ="10"
+                    pattern="[0-9]{10}"
+                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                    required>
+            </div>
+            <div class="mb-3">
               <label for="ControlInput1" class="form-label">Email address</label>
               <input type="email" class="form-control" id="ControlInput1" name="email" placeholder="name@example.com">
             </div>
             <div class="mb-3">
-              <label for="ControlTextarea1" class="form-label">Message</label>
-              <textarea class="form-control" id="ControlTextarea1" name="msg" rows="3"></textarea>
+              <label for="service" class="form-label">Service</label>
+              <select id="service" name="service" class="form-select w-auto">
+                {% for obj in services %}
+                <option value="{{ obj.title }}">{{ obj.title }}</option>
+                {% endfor %}
+              </select>
             </div>
             <div class="mb-3">
               <label for="date" class="form-label">Select Date</label>
@@ -111,7 +123,10 @@
               max="17:00"
               required />
             </div>
-         
+            <div class="mb-3">
+              <label for="ControlTextarea1" class="form-label">Message</label>
+              <textarea class="form-control" id="ControlTextarea1" name="msg" rows="3"></textarea>
+            </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
               <button type="submit" class="btn bg-primary-subtle" data-bs-theme="light">Send</button>
@@ -132,9 +147,9 @@
       <li class="nav-item">
         <a href="/" class="nav-link px-2 ">Home</a>
       </li> 
-      <li class="nav-item">
+      <!--li class="nav-item">
         <a href="{% url 'products' %}" class="nav-link px-2 ">Products</a>
-      </li> 
+      </li--> 
       <li class="nav-item">
         <a href="{% url 'services' %}" class="nav-link px-2 ">Services</a>
       </li> 
@@ -144,7 +159,7 @@
     </ul>
     <div class="text-center p-3">
       <p>© {% now "Y" %} Copyright :
-          <a href="https://mheria.com/" target="_blank">athomebeauty.com</a>
+          <a href="/" target="_blank">athomebeauty.com</a>
       </p>
     </div>
   </footer>

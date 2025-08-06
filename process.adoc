@@ -124,6 +124,9 @@ server {
 }
 
 sudo ln -s /etc/nginx/sites-available/ATHB /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl reload nginx
+
 
 sudo nginx -t
 sudo systemctl restart nginx
@@ -131,9 +134,16 @@ sudo systemctl restart nginx
 sudo systemctl enable nginx
 sudo systemctl enable ATHB
 
-sudo ufw allow 8082
+sudo ufw allow 8082/tcp
 sudo ufw enable
+sudo ufw status
 
+to check if nginx running 
+
+sudo lsof -i :8082
+
+
+sudo systemctl restart ATHB
 
 for internalization
  in settings

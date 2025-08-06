@@ -10,15 +10,19 @@ from django.contrib import messages
 # @login_required
 def home(request):
     today = timezone.now().date()
+    services = article.objects.filter(type="S").values('title').distinct()
     context = {
             "date": today,
+            "services": services
         }
     if request.method == "POST":
-        subject = request.POST.get("email", "")
-        message = request.POST.get("msg", "")
+        email = request.POST.get("email", "")
+        tel = request.POST.get("phone", "")
         picked_date = request.POST.get("date","")
         picked_time = request.POST.get("appointment","")
-        subject = subject + " pour le " + str(picked_date) + " à " + str(picked_time)
+        picked_service = request.POST.get("service","")
+        subject = picked_service + " pour le " + str(picked_date) + " à " + str(picked_time) 
+        message = "Numéro de téléphone : " + str(tel) + "\n" + "Email : " + email + "\n" + "Service : " + picked_service + "\n"+ " Date demandée : " + str(picked_date) + " à " + str(picked_time) + "\n" + "Message : " + request.POST.get("msg", "")
         from_email = request.POST.get("email", "")
         if subject and message and from_email:
             try:

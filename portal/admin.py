@@ -7,5 +7,5 @@ admin.site.index_title = "Welcome to ATHB's Admin Area"
 
 @admin.register(article)
 class IncomeAdmin(admin.ModelAdmin):
-    list_display = ('type','title', 'content', 'created','modified')  
+    list_display = ('type','title', 'content', 'created','modified','price')  
 

@@ -7,8 +7,66 @@
     <div class="col-md-4">
       <div class="card h-100 shadow-sm">
         <div class="card-body">
-          <h5 class="card-title">{{ obj.title}}</h5>
-          <p class="card-text">{{ obj.content}}</p>
+            <h5 class="card-title">{{ obj.title}} - {{ obj.price}} €</h5>
+          <p class="card-text">{{ obj.content}}</p> 
+          <a class="btn bg-primary-subtle text-end" href="#" data-bs-toggle="modal" data-bs-target="#inputservice">Booking</a>
+           <!-- Modal -->
+          <div class="modal fade" id="inputservice" tabindex="-1" aria-labelledby="inputNLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="inputNLabel">Book an appointment</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form method="POST" action="{% url 'home' %}">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                      <label for="phone">Phone number:</label>
+                      <input type="tel" id="phone" name="phone"
+                            maxlength ="10"
+                            pattern="[0-9]{10}"
+                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                            required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="ControlInput1" class="form-label">Email address</label>
+                      <input type="email" class="form-control" id="ControlInput1" name="email" placeholder="name@example.com">
+                    </div>
+                    <div class="mb-3">
+                      <label for="service" class="form-label">Service</label>
+                      <select id="service" name="service" class="form-select w-auto">
+                        <option value="{{ obj.title }}">{{ obj.title }}</option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="date" class="form-label">Select Date</label>
+                      <input type="date" class="form-control" id="date" name="date">
+                    </div>
+                    <div class="mb-3">
+                      <label for="appointment" class="form-label">Select time</label>
+                      <input
+                      type="time"
+                      class="form-control"
+                      id="appointment"
+                      name="appointment"
+                      min="09:30"
+                      max="17:00"
+                      required />
+                    </div>
+                    <div class="mb-3">
+                      <label for="ControlTextarea1" class="form-label">Message</label>
+                      <textarea class="form-control" id="ControlTextarea1" name="msg" rows="3"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                      <button type="submit" class="btn bg-primary-subtle" data-bs-theme="light">Send</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -24,4 +82,5 @@
     {% endfor %}
   </div>
 </div>
+
 {% endblock %}

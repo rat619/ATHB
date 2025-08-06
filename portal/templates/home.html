@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 {% block content %}
 <div class="container py-5 bg-image" style="background-image: url('{% static 'images/nail-salons.avif' %}'); 
                                             background-size: cover; 
@@ -9,7 +10,7 @@
                                             border-radius: 50px;
                                             margin: 20px;">
   <div class="text-center">
-      <h1 class="display-4 text-light fw-bold">Welcome</h1>
+      <h1 class="display-4 text-light fw-bolder">{% trans "Welcome" %}</h1>
       <!--p class="lead mt-3">Empowering families with simple digital tools.</p-->
   </div>
   
@@ -26,9 +27,9 @@
     <div class="col">
       <div class="bg-transparent border-transparent">
         <div class="card-body">
-          <h5 class="card-title text-light">Services</h5>
-          <p class="card-text text-light">Check out what we offer</p>
-          <a href="{% url 'services' %}" class="btn btn-light fw-bolder">View Services</a>
+          <h5 class="card-title text-light">{% trans "Services" %}</h5>
+          <p class="card-text text-light">{% trans "Check out what we offer" %}</p>
+          <a href="{% url 'services' %}" class="btn btn-light fw-bolder">{% trans "View services" %}</a>
         </div>
       </div>
     </div>

@@ -122,7 +122,13 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
+
+LANGUAGES = [
+    ('fr', 'Français'),
+    ('en', 'English'),
+    
+]
 
 TIME_ZONE = 'UTC'
 
@@ -141,6 +147,7 @@ STATICFILES_DIRS = [
     ("portal", BASE_DIR / "portal/static/",),
 ]
 
+LOCALE_PATHS = [BASE_DIR / 'locale']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

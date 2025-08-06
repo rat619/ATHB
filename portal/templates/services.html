@@ -12,7 +12,7 @@
           <p class="card-text">{{ obj.content}}</p> 
           <a class="btn bg-primary-subtle text-end" href="#" data-bs-toggle="modal" data-bs-target="#inputservice">{% trans "Booking" %}</a>
         <!-- Modal -->
-          <div class="modal fade" id="inputN" tabindex="-1" aria-labelledby="inputNLabel" aria-hidden="true">
+          <div class="modal fade" id="inputservice" tabindex="-1" aria-labelledby="inputNLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
@@ -23,8 +23,8 @@
                   <form method="POST" action="{% url 'home' %}">
                     {% csrf_token %}
                     <div class="mb-3">
-                      <label for="phone">{% trans "Phone number" %}</label>
-                      <input type="tel" id="phone" name="phone"
+                      <label  class="form-label" for="phone">{% trans "Phone number" %}</label>
+                      <input class="form-control" type="tel" id="phone" name="phone"
                             maxlength ="10"
                             pattern="[0-9]{10}"
                             oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
@@ -83,5 +83,4 @@
     {% endfor %}
   </div>
 </div>
-
 {% endblock %}

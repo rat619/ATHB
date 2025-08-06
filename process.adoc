@@ -142,6 +142,12 @@ to check if nginx running
 
 sudo lsof -i :8082
 
+if something is running
+
+sudo systemctl stop service_concerné
+sudo systemctl disable service_concerné
+
+
 
 sudo systemctl restart ATHB
 

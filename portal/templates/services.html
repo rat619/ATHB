@@ -6,15 +6,15 @@
 </p>
 <div class="container py-5">
   <div class="row g-4">
-    {% for obj in objects %}
+    {% for obj in services %}
     <div class="col-md-4">
       <div class="card h-100 shadow-sm">
         <div class="card-body">
-            <h5 class="card-title">{{ obj.title}} - {{ obj.price}} €</h5>
+          <h5 class="card-title">{{ obj.title}} - {{ obj.price}} €</h5>
           <p class="card-text">{{ obj.content}}</p> 
-          <a class="btn bg-primary-subtle text-end" href="#" data-bs-toggle="modal" data-bs-target="#inputservice">{% trans "Booking" %}</a>
-        <!-- Modal -->
-          <div class="modal fade" id="inputservice" tabindex="-1" aria-labelledby="inputNLabel" aria-hidden="true">
+          <a class="btn bg-primary-subtle text-end" href="#" data-bs-toggle="modal" data-id="{{ obj.title}}"  data-bs-target="#mservice">{% trans "Booking" %}</a>
+          <!-- Modal -->
+          <div class="modal fade" id="mservice" tabindex="-1" aria-labelledby="mserviceLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
@@ -37,9 +37,9 @@
                       <input type="email" class="form-control" id="ControlInput1" name="email" placeholder="name@example.com">
                     </div>
                     <div class="mb-3">
-                      <label for="service" class="form-label">{% trans "Service" %}</label>
-                      <select id="service" name="service" class="form-select w-auto">
-                        <option value="{{ obj.title }}">{{ obj.title }}</option>
+                      <label for="service2" class="form-label">{% trans "Service" %}</label>
+                      <select id="service2" name="service2" class="form-select w-auto">
+                          <option id="ServiceId" value=""></option>                        
                       </select>
                     </div>
                     <div class="mb-3">
@@ -85,4 +85,12 @@
     {% endfor %}
   </div>
 </div>
+<script>
+  $('#mservice').on('show.bs.modal', function (event) {
+    const button = $(event.relatedTarget);
+    const serviceTitle = button.data('id');
+    var select = $(this).find('#service2');
+    select.find('#ServiceId').val(serviceTitle).text(serviceTitle);
+  });
+</script>
 {% endblock %}

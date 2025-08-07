@@ -55,7 +55,6 @@ def products(request):
 def services(request):
     today = timezone.now().date()
     context = {
-            "objects": article.objects.filter(type="S"),
-            "services": article.objects.filter(type="S").values('title').distinct()
+            "services": article.objects.filter(type="S")
         }
     return render(request, 'services.html', context)
